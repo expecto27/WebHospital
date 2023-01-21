@@ -1,0 +1,25 @@
+﻿@model WebApplication4.Models.kvitancia_Result
+
+@{
+    ViewBag.Title = "Квитанции";
+}
+
+<h2>Квитанции</h2>
+
+@using (Html.BeginForm("kvitancia_Result", "kvit"))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <h4>Введите id Пациента</h4>
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.TextBox("idP")
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Получить квитанцию" class="btnbtn-primary" />
+        </div>
+    </div>
+}

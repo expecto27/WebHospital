@@ -1,0 +1,28 @@
+﻿@model WebApplication4.Models.salary_Result
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Ведомости</h2>
+
+@using (Html.BeginForm("salary_Result", "ved"))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-group">
+        <label for="firsDate" class="control-label col-md-2">Начальная дата</label>
+        <input type="date" name="firsDate" id="firsDate" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="lastDate" class="control-label col-md-2">Конечная дата</label>
+        <input type="date" name="lastDate" id="lastDate" class="form-control">
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Выполнить" class="btn btn-default" />
+        </div>
+    </div>
+}
+

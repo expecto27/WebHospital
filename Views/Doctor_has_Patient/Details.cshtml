@@ -1,0 +1,50 @@
+﻿@model WebApplication4.Doctor_has_Patient
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Doctor_has_Patient</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.datee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.fullname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.fullname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

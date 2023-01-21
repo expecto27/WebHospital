@@ -1,0 +1,1 @@
+﻿exec kvitancia 4

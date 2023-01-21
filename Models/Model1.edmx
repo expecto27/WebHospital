@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище HospitalModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="idDoctor" />
+          </Key>
+          <Property Name="idDoctor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Speciality_idSpeciality" Type="int" Nullable="false" />
+          <Property Name="fullname" Type="varchar" MaxLength="255" />
+          <Property Name="total" Type="int" />
+          <Property Name="p" Type="int" />
+        </EntityType>
+        <EntityType Name="Doctor_has_Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Doctor_idDoctor" Type="int" Nullable="false" />
+          <Property Name="Patient_idPatient" Type="int" Nullable="false" />
+          <Property Name="datee" Type="date" />
+          <Property Name="price" Type="int" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="idPatient" />
+          </Key>
+          <Property Name="idPatient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="varchar" MaxLength="255" />
+          <Property Name="birth" Type="varchar" MaxLength="255" />
+          <Property Name="addresss" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Speciality">
+          <Key>
+            <PropertyRef Name="idSpeciality" />
+          </Key>
+          <Property Name="idSpeciality" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Doctor__Speciali__02FC7413">
+          <End Role="Speciality" Type="Self.Speciality" Multiplicity="1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Speciality">
+              <PropertyRef Name="idSpeciality" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="Speciality_idSpeciality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_ha__Docto__06CD04F7">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_has_Patient" Type="Self.Doctor_has_Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="idDoctor" />
+            </Principal>
+            <Dependent Role="Doctor_has_Patient">
+              <PropertyRef Name="Doctor_idDoctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_ha__Patie__05D8E0BE">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Doctor_has_Patient" Type="Self.Doctor_has_Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="idPatient" />
+            </Principal>
+            <Dependent Role="Doctor_has_Patient">
+              <PropertyRef Name="Patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="kvitancia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idP" Type="int" Mode="In" />
+        </Function>
+        <Function Name="salary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firsDate" Type="date" Mode="In" />
+          <Parameter Name="lastDate" Type="date" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище HospitalModelContainer">
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor_has_Patient" EntityType="Self.Doctor_has_Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Speciality" EntityType="Self.Speciality" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Doctor__Speciali__02FC7413" Association="Self.FK__Doctor__Speciali__02FC7413">
+            <End Role="Speciality" EntitySet="Speciality" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_ha__Docto__06CD04F7" Association="Self.FK__Doctor_ha__Docto__06CD04F7">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Doctor_has_Patient" EntitySet="Doctor_has_Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_ha__Patie__05D8E0BE" Association="Self.FK__Doctor_ha__Patie__05D8E0BE">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Doctor_has_Patient" EntitySet="Doctor_has_Patient" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospitalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="idDoctor" />
+          </Key>
+          <Property Name="idDoctor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Speciality_idSpeciality" Type="Int32" Nullable="false" />
+          <Property Name="fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="total" Type="Int32" />
+          <Property Name="p" Type="Int32" />
+          <NavigationProperty Name="Speciality" Relationship="Self.FK__Doctor__Speciali__02FC7413" FromRole="Doctor" ToRole="Speciality" />
+          <NavigationProperty Name="Doctor_has_Patient" Relationship="Self.FK__Doctor_ha__Docto__06CD04F7" FromRole="Doctor" ToRole="Doctor_has_Patient" />
+        </EntityType>
+        <EntityType Name="Doctor_has_Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Doctor_idDoctor" Type="Int32" Nullable="false" />
+          <Property Name="Patient_idPatient" Type="Int32" Nullable="false" />
+          <Property Name="datee" Type="DateTime" Precision="0" />
+          <Property Name="price" Type="Int32" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__Doctor_ha__Docto__06CD04F7" FromRole="Doctor_has_Patient" ToRole="Doctor" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Doctor_ha__Patie__05D8E0BE" FromRole="Doctor_has_Patient" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="idPatient" />
+          </Key>
+          <Property Name="idPatient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="birth" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="addresss" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Doctor_has_Patient" Relationship="Self.FK__Doctor_ha__Patie__05D8E0BE" FromRole="Patient" ToRole="Doctor_has_Patient" />
+        </EntityType>
+        <EntityType Name="Speciality">
+          <Key>
+            <PropertyRef Name="idSpeciality" />
+          </Key>
+          <Property Name="idSpeciality" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__Doctor__Speciali__02FC7413" FromRole="Speciality" ToRole="Doctor" />
+        </EntityType>
+        <Association Name="FK__Doctor__Speciali__02FC7413">
+          <End Role="Speciality" Type="Self.Speciality" Multiplicity="1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Speciality">
+              <PropertyRef Name="idSpeciality" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="Speciality_idSpeciality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_ha__Docto__06CD04F7">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_has_Patient" Type="Self.Doctor_has_Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="idDoctor" />
+            </Principal>
+            <Dependent Role="Doctor_has_Patient">
+              <PropertyRef Name="Doctor_idDoctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_ha__Patie__05D8E0BE">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Doctor_has_Patient" Type="Self.Doctor_has_Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="idPatient" />
+            </Principal>
+            <Dependent Role="Doctor_has_Patient">
+              <PropertyRef Name="Patient_idPatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" />
+          <EntitySet Name="Doctor_has_Patient" EntityType="Self.Doctor_has_Patient" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" />
+          <EntitySet Name="Speciality" EntityType="Self.Speciality" />
+          <AssociationSet Name="FK__Doctor__Speciali__02FC7413" Association="Self.FK__Doctor__Speciali__02FC7413">
+            <End Role="Speciality" EntitySet="Speciality" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_ha__Docto__06CD04F7" Association="Self.FK__Doctor_ha__Docto__06CD04F7">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Doctor_has_Patient" EntitySet="Doctor_has_Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_ha__Patie__05D8E0BE" Association="Self.FK__Doctor_ha__Patie__05D8E0BE">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Doctor_has_Patient" EntitySet="Doctor_has_Patient" />
+          </AssociationSet>
+          <FunctionImport Name="kvitancia" ReturnType="Collection(HospitalModel.kvitancia_Result)">
+            <Parameter Name="idP" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="salary" ReturnType="Collection(HospitalModel.salary_Result)">
+            <Parameter Name="firsDate" Mode="In" Type="DateTime" />
+            <Parameter Name="lastDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="kvitancia_Result">
+          <Property Type="String" Name="fullname" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="datee" Nullable="true" />
+          <Property Type="Int32" Name="price" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="salary_Result">
+          <Property Type="Int32" Name="Doctor_idDoctor" Nullable="false" />
+          <Property Type="String" Name="fullname" Nullable="true" MaxLength="255" />
+          <Property Type="Decimal" Name="Зарплата" Nullable="true" Precision="13" Scale="2" />
+          <Property Type="Decimal" Name="налог" Nullable="true" Precision="13" Scale="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище HospitalModelContainer" CdmEntityContainer="HospitalEntities">
+          <EntitySetMapping Name="Doctor">
+            <EntityTypeMapping TypeName="HospitalModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="idDoctor" ColumnName="idDoctor" />
+                <ScalarProperty Name="Speciality_idSpeciality" ColumnName="Speciality_idSpeciality" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="p" ColumnName="p" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctor_has_Patient">
+            <EntityTypeMapping TypeName="HospitalModel.Doctor_has_Patient">
+              <MappingFragment StoreEntitySet="Doctor_has_Patient">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Doctor_idDoctor" ColumnName="Doctor_idDoctor" />
+                <ScalarProperty Name="Patient_idPatient" ColumnName="Patient_idPatient" />
+                <ScalarProperty Name="datee" ColumnName="datee" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patient">
+            <EntityTypeMapping TypeName="HospitalModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="idPatient" ColumnName="idPatient" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="birth" ColumnName="birth" />
+                <ScalarProperty Name="addresss" ColumnName="addresss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Speciality">
+            <EntityTypeMapping TypeName="HospitalModel.Speciality">
+              <MappingFragment StoreEntitySet="Speciality">
+                <ScalarProperty Name="idSpeciality" ColumnName="idSpeciality" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="kvitancia" FunctionName="Хранилище HospitalModel.kvitancia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HospitalModel.kvitancia_Result">
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="datee" ColumnName="datee" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="salary" FunctionName="Хранилище HospitalModel.salary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HospitalModel.salary_Result">
+                <ScalarProperty Name="Doctor_idDoctor" ColumnName="Doctor_idDoctor" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="Зарплата" ColumnName="Зарплата" />
+                <ScalarProperty Name="налог" ColumnName="налог" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
